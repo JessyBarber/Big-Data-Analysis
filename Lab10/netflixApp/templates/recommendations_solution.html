@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Netflix App - Get Recommendations</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/jumbotron-narrow.css" rel="stylesheet">
+
+  </head>
+
+<body>
+  <div class="container">
+      <div class="header clearfix">
+      <a href="/"><h3 class="text-muted">Netflix App 🍿</h3></a>
+      </div>
+
+  <div class="jumbotron">
+    <h1>Tell us more about your tastes... </h1>
+    <form action = "/get_recommandations" method="POST">
+        <p> Select movies you like:
+        <br>
+          <select id="selector" name="mid" multiple="multiple">
+            {% for mid in movies %}
+              <option value={{mid}}>
+                {{movies[mid]['title']}}
+              </option>
+            {% endfor %}
+          </select>
+      </p>
+      <p><input type ="submit" value="Submit" class="btn btn-lg btn-success" role="button"/></p>
+    </form>
+  </div>
+
+</body>
+</html>
+
+      <div class="row marketing">
+        {% if selection %}
+          <p>Based on your selection {{selection}}, we recommend you...</p>
+        {% endif %}
+      </div>
+      <div class="row marketing">
+        {% if recos %}
+        <!-- TODO: Display to the user the recommendations computed in Flask backend  -->
+          <h4>
+            <ol>
+              {% for reco in recos %}
+              <li> {{ "{2}, ID: {0}, Score: {1}".format(reco[0], reco[1], reco[2]) }}  </li>
+              {% endfor %}
+            </ol>
+          </h4>
+        {% else %}
+          {% if selection %}
+            <h4>No recommendations</h4>
+          {% endif %}
+        {% endif %}
+      </div>
+
+      <footer class="footer">
+        <p>&copy; Source: VD</p>
+      </footer>
+
+    </div> <!-- /container -->
+  </body>
+</html>
